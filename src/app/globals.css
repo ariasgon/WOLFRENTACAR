@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --wolf-dark: #11161C;
+  --wolf-red: #D50026;
+  --wolf-blue: #2176AE;
+  --wolf-white: #FFFFFF;
+  --wolf-light-gray: #F5F5F7;
+  --wolf-medium-gray: #E5E5E5;
+  --wolf-text: #333333;
+  --wolf-text-light: #666666;
+}
+
+@theme inline {
+  --color-wolf-dark: var(--wolf-dark);
+  --color-wolf-red: var(--wolf-red);
+  --color-wolf-blue: var(--wolf-blue);
+  --color-wolf-white: var(--wolf-white);
+  --color-wolf-light: var(--wolf-light-gray);
+  --color-wolf-gray: var(--wolf-medium-gray);
+  --color-wolf-text: var(--wolf-text);
+  --color-wolf-text-light: var(--wolf-text-light);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--wolf-white);
+  color: var(--wolf-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-weight: 700;
+}
+
+/* Booking widget date inputs */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--wolf-light-gray);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--wolf-blue);
+  border-radius: 4px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+/* WhatsApp floating button pulse */
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s infinite;
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <!-- Circle -->
+  <circle cx="100" cy="85" r="72" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+  <!-- Wolf head silhouette -->
+  <g transform="translate(100,85)" fill="#FFFFFF">
+    <path d="M-8,-55 L-25,-35 Q-40,-15 -38,10 Q-36,30 -20,42 Q-8,50 5,48 Q20,45 32,35 Q45,20 45,0 Q45,-15 35,-30 L20,-50 L10,-38 L5,-55 Z"/>
+    <path d="M-20,-50 L-35,-70 L-30,-42 Z"/>
+    <path d="M12,-50 L22,-72 L25,-42 Z"/>
+    <circle cx="-8" cy="-10" r="4" fill="#11161C"/>
+    <path d="M-35,15 Q-42,22 -38,30 Q-35,35 -28,32" fill="none" stroke="#11161C" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M-20,42 Q-5,52 10,48" fill="none" stroke="#11161C" stroke-width="2" stroke-linecap="round"/>
+    <path d="M40,15 Q55,5 50,-15" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <!-- WOLF text -->
+  <text x="100" y="185" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="42" fill="#D50026" letter-spacing="3">WOLF</text>
+  <!-- RENT A CAR text -->
+  <text x="100" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="18" fill="#FFFFFF" letter-spacing="5">RENT A CAR</text>
+</svg>
