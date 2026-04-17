@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, MessageCircle, Calendar } from "lucide-react";
 
 export default function MisReservasPage() {
@@ -15,62 +16,81 @@ export default function MisReservasPage() {
 
   return (
     <>
-      <section className="bg-white border-b border-wolf-border/60">
-        <div className="max-w-[1170px] mx-auto px-6 py-10">
-          <p className="text-xs text-wolf-text-card uppercase tracking-wider">
-            Inicio · Mis reservas
-          </p>
-          <h1 className="text-2xl md:text-3xl font-bold text-wolf-green mt-2">
-            Consulta tu reserva
+      <section className="relative bg-wolf-dark text-white overflow-hidden bg-noise">
+        <div className="absolute inset-0 opacity-60 pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[80%] bg-[radial-gradient(circle,rgba(33,118,174,0.28)_0%,transparent_60%)]" />
+        </div>
+        <span
+          aria-hidden="true"
+          className="absolute -left-4 bottom-[-40%] font-display font-black leading-none select-none pointer-events-none"
+          style={{
+            fontSize: "clamp(150px, 19vw, 280px)",
+            color: "transparent",
+            WebkitTextStroke: "1px rgba(233,230,223,0.06)",
+          }}
+        >
+          RESERVAS
+        </span>
+        <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8 py-14 md:py-20">
+          <div className="flex items-center gap-3 mb-6 text-[10px] font-display font-bold tracking-[0.22em] uppercase text-wolf-on-dark/60">
+            <Link href="/" className="hover:text-wolf-red transition-colors">
+              Inicio
+            </Link>
+            <span>·</span>
+            <span>Mis reservas</span>
+          </div>
+          <div className="kicker kicker-blue mb-5">Consulta de reserva</div>
+          <h1 className="display-lg text-white">
+            Consulta tu<br/>
+            <span className="text-wolf-blue">reserva activa</span>.
           </h1>
-          <p className="text-wolf-text text-sm mt-2 max-w-2xl">
+          <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-5">
             Ingresa tu número de reserva y correo para ver el estado o realizar cambios.
           </p>
         </div>
       </section>
 
-      <section className="bg-wolf-soft">
-        <div className="max-w-2xl mx-auto px-6 py-10">
-          <form onSubmit={handleSubmit} className="card p-6 md:p-8 space-y-4">
+      <section className="bg-wolf-bone py-16">
+        <div className="max-w-2xl mx-auto px-4 lg:px-8">
+          <form
+            onSubmit={handleSubmit}
+            className="card corner-brackets p-8 md:p-10 space-y-5"
+          >
             <div>
-              <label className="block text-sm font-semibold text-wolf-text mb-1">
-                Número de reserva *
-              </label>
+              <label className="field-label">Número de reserva *</label>
               <input
                 type="text"
                 required
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="Ej. WLF-12345"
-                className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+                className="field-light"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-wolf-text mb-1">
-                Correo electrónico *
-              </label>
+              <label className="field-label">Correo electrónico *</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="correo@ejemplo.com"
-                className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+                className="field-light"
               />
             </div>
             <button type="submit" className="btn-primary w-full">
-              <Search size={18} />
+              <Search size={16} />
               Consultar reserva
             </button>
           </form>
 
           {searched && (
-            <div className="card p-6 mt-6 text-center">
-              <Calendar size={36} className="text-wolf-green mx-auto mb-3" />
-              <p className="text-wolf-green font-bold text-base mb-2">
+            <div className="card-dark corner-brackets p-8 mt-6 text-center">
+              <Calendar size={32} className="text-wolf-red mx-auto mb-4" />
+              <p className="font-display font-bold uppercase text-white text-lg mb-2">
                 Estamos buscando tu reserva
               </p>
-              <p className="text-wolf-text text-sm">
+              <p className="text-wolf-on-dark/70 text-sm mb-5">
                 Para asistencia inmediata, escríbenos por WhatsApp con tu número de reserva.
               </p>
               <a
@@ -79,9 +99,9 @@ export default function MisReservasPage() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary mt-4"
+                className="btn-primary"
               >
-                <MessageCircle size={18} />
+                <MessageCircle size={16} />
                 Consultar por WhatsApp
               </a>
             </div>

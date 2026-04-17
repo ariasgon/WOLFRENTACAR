@@ -4,15 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
-import BookingWidget from "@/components/BookingWidget";
 
 const navLinks = [
-  { href: "/flota", label: "Categorías de vehículos" },
-  { href: "/ubicaciones", label: "Red de agencias" },
+  { href: "/flota", label: "Flota" },
+  { href: "/ubicaciones", label: "Agencias" },
   { href: "/ofertas", label: "Ofertas" },
+  { href: "/empresas", label: "Empresas" },
   { href: "/fidelidad", label: "Fidelidad" },
-  { href: "/empresas", label: "Para empresas" },
-  { href: "/dudas", label: "Dudas" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 const WHATSAPP_URL =
@@ -22,109 +22,133 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="bg-white">
-      {/* Country bar (Localiza-style) */}
-      <div className="bg-white text-xs text-wolf-text">
-        <div className="max-w-[1170px] mx-auto px-4 py-1 flex items-center justify-end">
-          <span className="text-wolf-green font-semibold uppercase tracking-wider">
-            Colombia
-          </span>
-        </div>
-      </div>
-
-      {/* Green navbar panel — contained, not full-bleed */}
-      <div className="max-w-[1170px] mx-auto px-4">
-        <div className="bg-wolf-green">
-          {/* Top row: logo / nav / login */}
-          <nav className="px-6 py-4 flex items-center justify-between gap-6">
-            <Link href="/" className="flex items-center shrink-0" aria-label="Wolf Rent a Car">
-              <Image
-                src="/wolf-logo-white.svg"
-                alt="Wolf Rent a Car"
-                width={120}
-                height={40}
-                priority
-              />
-            </Link>
-
-            <div className="hidden lg:flex items-center gap-5">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-white text-[12px] font-semibold uppercase tracking-wide hover:text-wolf-green-accent transition-colors px-1 py-1"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="hidden lg:flex items-center gap-4 shrink-0">
-              <a
-                href="tel:+573028491534"
-                className="text-white text-[12px] font-semibold uppercase tracking-wide flex items-center gap-2 hover:text-wolf-green-accent transition-colors"
-              >
-                <Phone size={16} className="text-wolf-green-accent" />
-                <span className="leading-tight">
-                  <span className="block opacity-80 text-[10px]">LLAMAR</span>
-                  <span className="block">302 849 1534</span>
-                </span>
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white text-[12px] font-semibold uppercase tracking-wide flex items-center gap-2 hover:text-wolf-green-accent transition-colors"
-              >
-                <MessageCircle size={16} className="text-wolf-green-accent" />
-                <span>WhatsApp</span>
-              </a>
-            </div>
-
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden text-white p-2"
-              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-            >
-              {mobileOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
-          </nav>
-
-          {/* Booking widget row (sits inside the same green panel like Localiza) */}
-          <div className="px-4 md:px-6 pb-5">
-            <p className="text-white text-xl md:hidden font-bold mb-3">Nueva reserva</p>
-            <BookingWidget />
+    <header className="sticky top-0 z-50">
+      {/* Top status strip */}
+      <div className="bg-wolf-ink text-wolf-on-dark text-[10px] font-display font-bold tracking-[0.24em] uppercase border-b border-wolf-hairline">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-8 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-wolf-red animate-blink" />
+            <span className="hidden sm:inline">Colombia · 6 Ciudades · Lun–Sáb 08:00–18:00</span>
+            <span className="sm:hidden">Colombia · 6 ciudades</span>
+          </div>
+          <a
+            href="tel:+573028491534"
+            className="hidden md:flex items-center gap-2 hover:text-wolf-red-glow transition-colors"
+          >
+            <Phone size={11} />
+            302 849 1534
+          </a>
+          <div className="flex items-center gap-4 text-[9px]">
+            <span className="hidden lg:inline">Seguro incluido</span>
+            <span className="w-1 h-1 rounded-full bg-wolf-blue hidden lg:inline" />
+            <span className="hidden lg:inline">WhatsApp 24h</span>
           </div>
         </div>
       </div>
 
+      {/* Main nav band */}
+      <div className="bg-wolf-dark border-b border-wolf-hairline">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+          <nav className="h-[76px] flex items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="flex items-center shrink-0 group relative"
+              aria-label="Wolf Rent a Car"
+            >
+              <div className="relative">
+                <Image
+                  src="/wolf-logo-white.svg"
+                  alt="Wolf Rent a Car"
+                  width={140}
+                  height={48}
+                  priority
+                  className="h-11 lg:h-12 w-auto transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <span className="absolute -right-2 -top-1 w-1.5 h-1.5 bg-wolf-red rounded-full animate-blink" />
+              </div>
+            </Link>
+
+            <div className="hidden lg:flex items-center gap-0 h-full">
+              {navLinks.map((link, i) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="relative px-3 xl:px-4 h-full flex items-center text-white/80 hover:text-white text-[11px] font-display font-bold uppercase tracking-[0.14em] transition-colors group"
+                >
+                  <span className="relative z-10">{link.label}</span>
+                  <span className="absolute inset-x-3 xl:inset-x-4 bottom-5 h-[2px] bg-wolf-red scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+                  {i < navLinks.length - 1 && (
+                    <span className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-4 bg-white/10" />
+                  )}
+                </Link>
+              ))}
+            </div>
+
+            <div className="hidden md:flex items-center gap-2 shrink-0">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary h-11 px-4 xl:px-5 text-[11px]"
+              >
+                <MessageCircle size={14} />
+                <span className="hidden xl:inline">WhatsApp</span>
+              </a>
+              <Link
+                href="/reservar"
+                className="btn-secondary h-11 px-4 xl:px-5 text-[11px]"
+              >
+                Reservar
+              </Link>
+            </div>
+
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden text-white p-2 border border-white/15"
+              aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      {/* Thin red accent stripe */}
+      <div className="h-[3px] bg-wolf-red" />
+
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="lg:hidden bg-wolf-green border-t border-white/10">
-          <div className="px-6 py-4 space-y-2">
-            {navLinks.map((link) => (
+        <div className="xl:hidden bg-wolf-ink border-b border-wolf-hairline">
+          <div className="px-4 py-4 space-y-0">
+            {navLinks.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block text-white text-sm font-semibold uppercase tracking-wide py-3 border-b border-white/10 hover:text-wolf-green-accent transition-colors"
+                className="flex items-center justify-between text-white font-display text-sm font-bold uppercase tracking-[0.18em] py-4 border-b border-wolf-hairline hover:text-wolf-red transition-colors"
               >
-                {link.label}
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-[10px] text-wolf-red w-6">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {link.label}
+                </span>
+                <span className="text-wolf-red">→</span>
               </Link>
             ))}
-            <div className="pt-4 flex flex-col gap-3">
+            <div className="pt-5 flex flex-col gap-3">
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary w-full"
               >
-                <MessageCircle size={18} />
+                <MessageCircle size={16} />
                 WhatsApp
               </a>
-              <a href="tel:+573028491534" className="btn-secondary w-full bg-white">
-                <Phone size={18} />
-                Llamar 302 849 1534
+              <a href="tel:+573028491534" className="btn-outline-light w-full">
+                <Phone size={16} />
+                302 849 1534
               </a>
             </div>
           </div>

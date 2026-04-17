@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, Calendar, Clock } from "lucide-react";
+import { MapPin, Calendar, Clock, ArrowRight } from "lucide-react";
 import { locations } from "@/lib/locations";
 
 interface BookingWidgetProps {
-  variant?: "header" | "panel";
+  /** visual variant — "dark" renders on dark bg, "light" on light bg */
+  variant?: "dark" | "light";
 }
 
-export default function BookingWidget({ variant = "header" }: BookingWidgetProps) {
+export default function BookingWidget({ variant = "dark" }: BookingWidgetProps) {
   const router = useRouter();
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -21,6 +22,7 @@ export default function BookingWidget({ variant = "header" }: BookingWidgetProps
   const [ciudad, setCiudad] = useState("");
   const [fechaRecogida, setFechaRecogida] = useState(formatDate(tomorrow));
   const [horaRecogida, setHoraRecogida] = useState("10:00");
+  const [fechaDevolucion, setFechaDevolucion] = useState(formatDate(dayAfter));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,85 +30,127 @@ export default function BookingWidget({ variant = "header" }: BookingWidgetProps
       ciudad,
       recogida: fechaRecogida,
       hora: horaRecogida,
-      devolucion: formatDate(dayAfter),
+      devolucion: fechaDevolucion,
     });
     router.push(`/reservar?${params.toString()}`);
   };
 
+  const fieldClass = variant === "light" ? "field-light" : "field";
+  const labelClass =
+    variant === "light"
+      ? "field-label"
+      : "field-label field-label-dark";
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={
-        variant === "panel"
-          ? "bg-wolf-green p-5 rounded-md"
-          : ""
-      }
-    >
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_180px_180px_auto] gap-3 items-center">
-        {/* Location */}
-        <div className="relative">
-          <select
-            value={ciudad}
-            onChange={(e) => setCiudad(e.target.value)}
-            required
-            className="field appearance-none pr-12"
-            aria-label="Local de retirada"
-          >
-            <option value="">Informa el local de retirada (ej: Bogotá, Medellín)</option>
-            {locations.map((loc) => (
-              <option key={loc.id} value={loc.id}>
-                {loc.city}
-              </option>
-            ))}
-          </select>
-          <MapPin
-            size={20}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
-          />
+    <form onSubmit={handleSubmit} className="relative">
+      <div
+        className={`relative grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_0.9fr_auto] gap-0 ${
+          variant === "light"
+            ? "bg-white border border-wolf-border"
+            : "bg-wolf-ink border border-wolf-hairline"
+        }`}
+      >
+        {/* Ciudad */}
+        <div className="relative px-5 pt-4 pb-3 md:border-r border-b md:border-b-0 border-wolf-hairline">
+          <label htmlFor="bw-ciudad" className={labelClass}>
+            Ciudad · Punto de recogida
+          </label>
+          <div className="flex items-center gap-2">
+            <MapPin size={16} className="text-wolf-red shrink-0" />
+            <select
+              id="bw-ciudad"
+              value={ciudad}
+              onChange={(e) => setCiudad(e.target.value)}
+              required
+              className={`${fieldClass} h-9 border-0 bg-transparent px-0 shadow-none focus:shadow-none`}
+              aria-label="Ciudad de recogida"
+            >
+              <option value="">Selecciona ciudad</option>
+              {locations.map((loc) => (
+                <option key={loc.id} value={loc.id}>
+                  {loc.city}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        {/* Date */}
-        <div className="relative">
-          <input
-            type="date"
-            value={fechaRecogida}
-            onChange={(e) => setFechaRecogida(e.target.value)}
-            min={formatDate(new Date())}
-            required
-            className="field pr-12"
-            aria-label="Fecha"
-          />
-          <Calendar
-            size={20}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
-          />
+        {/* Fecha recogida */}
+        <div className="relative px-5 pt-4 pb-3 md:border-r border-b md:border-b-0 border-wolf-hairline">
+          <label htmlFor="bw-rec" className={labelClass}>
+            Recogida
+          </label>
+          <div className="flex items-center gap-2">
+            <Calendar size={16} className="text-wolf-red shrink-0" />
+            <input
+              id="bw-rec"
+              type="date"
+              value={fechaRecogida}
+              onChange={(e) => setFechaRecogida(e.target.value)}
+              min={formatDate(new Date())}
+              required
+              className={`${fieldClass} h-9 border-0 bg-transparent px-0 shadow-none focus:shadow-none`}
+              aria-label="Fecha de recogida"
+            />
+          </div>
         </div>
 
-        {/* Hour */}
-        <div className="relative">
-          <select
-            value={horaRecogida}
-            onChange={(e) => setHoraRecogida(e.target.value)}
-            className="field appearance-none pr-12"
-            aria-label="Hora"
-          >
-            {Array.from({ length: 11 }, (_, i) => 8 + i).map((h) => (
-              <option key={h} value={`${h.toString().padStart(2, "0")}:00`}>
-                {`${h.toString().padStart(2, "0")}:00`}
-              </option>
-            ))}
-          </select>
-          <Clock
-            size={20}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
-          />
+        {/* Fecha devolución */}
+        <div className="relative px-5 pt-4 pb-3 md:border-r border-b md:border-b-0 border-wolf-hairline">
+          <label htmlFor="bw-dev" className={labelClass}>
+            Devolución
+          </label>
+          <div className="flex items-center gap-2">
+            <Calendar size={16} className="text-wolf-blue shrink-0" />
+            <input
+              id="bw-dev"
+              type="date"
+              value={fechaDevolucion}
+              onChange={(e) => setFechaDevolucion(e.target.value)}
+              min={fechaRecogida}
+              required
+              className={`${fieldClass} h-9 border-0 bg-transparent px-0 shadow-none focus:shadow-none`}
+              aria-label="Fecha de devolución"
+            />
+          </div>
+        </div>
+
+        {/* Hora */}
+        <div className="relative px-5 pt-4 pb-3 md:border-r border-b md:border-b-0 border-wolf-hairline">
+          <label htmlFor="bw-hora" className={labelClass}>
+            Hora
+          </label>
+          <div className="flex items-center gap-2">
+            <Clock size={16} className="text-wolf-blue shrink-0" />
+            <select
+              id="bw-hora"
+              value={horaRecogida}
+              onChange={(e) => setHoraRecogida(e.target.value)}
+              className={`${fieldClass} h-9 border-0 bg-transparent px-0 shadow-none focus:shadow-none`}
+              aria-label="Hora de recogida"
+            >
+              {Array.from({ length: 11 }, (_, i) => 8 + i).map((h) => (
+                <option key={h} value={`${h.toString().padStart(2, "0")}:00`}>
+                  {`${h.toString().padStart(2, "0")}:00`}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Submit */}
-        <button type="submit" className="btn-primary md:w-auto w-full">
-          Reservar
+        <button
+          type="submit"
+          className="bg-wolf-red text-white font-display font-bold text-[12px] uppercase tracking-[0.18em] h-[76px] md:h-auto px-7 flex items-center justify-center gap-3 hover:bg-wolf-ink transition-colors group"
+        >
+          <span>Buscar</span>
+          <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
       </div>
+
+      {/* Corner brackets decoration */}
+      <span className="hidden md:block absolute -top-px -left-px w-3 h-3 border-t-2 border-l-2 border-wolf-red" />
+      <span className="hidden md:block absolute -bottom-px -right-px w-3 h-3 border-b-2 border-r-2 border-wolf-red" />
     </form>
   );
 }

@@ -12,11 +12,13 @@ import {
   Briefcase,
   Fuel,
   DoorOpen,
-  ChevronRight,
+  ArrowRight,
   ArrowLeft,
+  CheckCircle2,
 } from "lucide-react";
 import { vehicles, vehicleCategories, formatCOP, Vehicle } from "@/lib/vehicles";
 import { locations } from "@/lib/locations";
+import BookingWidget from "@/components/BookingWidget";
 
 function ReservarContent() {
   const searchParams = useSearchParams();
@@ -67,33 +69,52 @@ function ReservarContent() {
 
   return (
     <>
-      <section className="bg-white border-b border-wolf-border/60">
-        <div className="max-w-[1170px] mx-auto px-6 py-10">
-          <p className="text-xs text-wolf-text-card uppercase tracking-wider">
-            Inicio · Reservar
-          </p>
-          <h1 className="text-2xl md:text-3xl font-bold text-wolf-green mt-2">
-            {ciudad ? `Vehículos disponibles en ${cityName}` : "Buscar vehículos"}
+      <section className="relative bg-wolf-dark text-white overflow-hidden bg-noise">
+        <div className="absolute inset-0 opacity-60 pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[80%] bg-[radial-gradient(circle,rgba(213,0,38,0.3)_0%,transparent_60%)]" />
+        </div>
+        <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8 py-14 md:py-20">
+          <div className="flex items-center gap-3 mb-6 text-[10px] font-display font-bold tracking-[0.22em] uppercase text-wolf-on-dark/60">
+            <Link href="/" className="hover:text-wolf-red transition-colors">
+              Inicio
+            </Link>
+            <span>·</span>
+            <span>Reservar</span>
+          </div>
+          <div className="kicker mb-5">Disponibilidad en tiempo real</div>
+          <h1 className="display-lg text-white">
+            {ciudad ? (
+              <>
+                Vehículos en<br />
+                <span className="text-wolf-red">{cityName}</span>.
+              </>
+            ) : (
+              <>
+                Busca tu<br />
+                <span className="text-wolf-red">próximo viaje</span>.
+              </>
+            )}
           </h1>
           {recogida && devolucion && (
-            <p className="text-sm text-wolf-text mt-2">
-              {recogida} al {devolucion} ({days} día{days !== 1 ? "s" : ""})
+            <p className="font-mono text-[12px] uppercase tracking-widest text-wolf-on-dark/70 mt-5">
+              {recogida} → {devolucion} · {days} día{days !== 1 ? "s" : ""}
             </p>
           )}
+
+          <div className="mt-10">
+            <BookingWidget variant="dark" />
+          </div>
         </div>
       </section>
 
-      <section className="bg-wolf-soft">
-        <div className="max-w-[1170px] mx-auto px-6 py-10">
+      <section className="bg-wolf-bone py-12">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="eyebrow text-wolf-text-muted mr-2">Filtro:</span>
               <button
                 onClick={() => setFilterCategory("all")}
-                className={`px-4 h-9 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors ${
-                  filterCategory === "all"
-                    ? "bg-wolf-green text-white"
-                    : "bg-white text-wolf-green border border-wolf-green"
-                }`}
+                className={`chip ${filterCategory === "all" ? "chip-active" : ""}`}
               >
                 Todos
               </button>
@@ -101,11 +122,7 @@ function ReservarContent() {
                 <button
                   key={cat.slug}
                   onClick={() => setFilterCategory(cat.slug)}
-                  className={`px-4 h-9 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors ${
-                    filterCategory === cat.slug
-                      ? "bg-wolf-green text-white"
-                      : "bg-white text-wolf-green border border-wolf-green"
-                  }`}
+                  className={`chip ${filterCategory === cat.slug ? "chip-active" : ""}`}
                 >
                   {cat.name}
                 </button>
@@ -114,20 +131,25 @@ function ReservarContent() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 h-9 rounded-md border border-wolf-border text-sm bg-white text-wolf-text"
+              className="field-light h-10 text-[12px] font-display font-bold uppercase tracking-wider"
+              style={{ width: "auto", minWidth: "240px" }}
             >
-              <option value="price-asc">Precio: menor a mayor</option>
-              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="price-asc">Precio · menor a mayor</option>
+              <option value="price-desc">Precio · mayor a menor</option>
               <option value="passengers">Más pasajeros</option>
             </select>
           </div>
 
-          <p className="text-sm text-wolf-text-card mb-4">
-            {filteredVehicles.length} vehículo{filteredVehicles.length !== 1 ? "s" : ""} disponible{filteredVehicles.length !== 1 ? "s" : ""}
+          <p className="font-mono text-[11px] uppercase tracking-widest text-wolf-text mb-6 border-b border-wolf-dark pb-3">
+            <span className="text-wolf-red font-bold">
+              {String(filteredVehicles.length).padStart(2, "0")}
+            </span>{" "}
+            vehículo{filteredVehicles.length !== 1 ? "s" : ""} disponible
+            {filteredVehicles.length !== 1 ? "s" : ""}
           </p>
 
-          <div className="space-y-4">
-            {filteredVehicles.map((vehicle) => (
+          <div className="space-y-3">
+            {filteredVehicles.map((vehicle, i) => (
               <VehicleRow
                 key={vehicle.id}
                 vehicle={vehicle}
@@ -135,6 +157,7 @@ function ReservarContent() {
                 ciudad={ciudad}
                 recogida={recogida}
                 devolucion={devolucion}
+                index={i}
               />
             ))}
           </div>
@@ -150,12 +173,14 @@ function VehicleRow({
   ciudad,
   recogida,
   devolucion,
+  index,
 }: {
   vehicle: Vehicle;
   days: number;
   ciudad: string;
   recogida: string;
   devolucion: string;
+  index: number;
 }) {
   const total = vehicle.pricePerDay * days;
   const params = new URLSearchParams();
@@ -165,62 +190,75 @@ function VehicleRow({
   if (devolucion) params.set("devolucion", devolucion);
 
   return (
-    <div className="card p-4 md:p-6 flex flex-col md:flex-row gap-4 md:gap-6">
-      <div className="w-full md:w-52 h-36 bg-wolf-soft rounded-md flex items-center justify-center shrink-0">
-        <div className="text-center">
-          <svg width="80" height="50" viewBox="0 0 80 50" fill="none" className="mx-auto mb-1 opacity-60">
-            <rect x="15" y="15" width="50" height="22" rx="8" fill="#01602A" />
-            <rect x="5" y="25" width="70" height="14" rx="5" fill="#01602A" />
-            <circle cx="22" cy="42" r="6" fill="#1a1a1a" />
-            <circle cx="58" cy="42" r="6" fill="#1a1a1a" />
-            <rect x="48" y="18" width="12" height="8" rx="2" fill="#78DE1F" opacity="0.6" />
-          </svg>
-          <p className="text-xs text-wolf-text-card">{vehicle.category}</p>
-        </div>
+    <article className="group card flex flex-col md:flex-row items-stretch hover:border-wolf-dark transition-colors">
+      <div className="w-full md:w-56 h-40 md:h-auto bg-wolf-bone flex items-center justify-center shrink-0 relative overflow-hidden border-b md:border-b-0 md:border-r border-wolf-border">
+        <span className="absolute top-2 left-3 font-mono text-[10px] uppercase tracking-widest text-wolf-text-muted">
+          /{String(index + 1).padStart(2, "0")}
+        </span>
+        <svg width="120" height="70" viewBox="0 0 120 70" fill="none" className="opacity-80 transition-transform duration-500 group-hover:translate-x-2">
+          <path d="M10 56 Q18 38 42 34 L60 28 Q72 24 84 26 Q96 30 104 44 L110 52 Q110 58 104 58 L10 58 Q4 58 4 54 Z" fill="#1a2029" />
+          <path d="M42 30 Q56 24 74 28 Q86 32 94 44 L44 46 Z" fill="#cfd6db" opacity="0.85" />
+          <circle cx="30" cy="58" r="8" fill="#0a0c10" />
+          <circle cx="86" cy="58" r="8" fill="#0a0c10" />
+          <rect x="100" y="44" width="8" height="4" rx="1" fill="#D50026" />
+        </svg>
       </div>
 
-      <div className="flex-1 min-w-0">
-        <span className="text-[11px] font-bold text-wolf-green uppercase tracking-wide">
-          {vehicle.category}
-        </span>
-        <h3 className="text-lg font-bold text-wolf-green">{vehicle.name}</h3>
-        <p className="text-sm text-wolf-text-card">
-          {vehicle.brand} {vehicle.model} {vehicle.year} o similar
+      <div className="flex-1 min-w-0 p-5 md:p-6">
+        <span className="eyebrow text-wolf-blue">{vehicle.category}</span>
+        <h3 className="font-display font-bold text-xl uppercase tracking-tight text-wolf-dark mt-1">
+          {vehicle.name}
+        </h3>
+        <p className="text-xs text-wolf-text-muted font-mono uppercase tracking-wider mt-1">
+          {vehicle.brand} · {vehicle.model} · {vehicle.year} · o similar
         </p>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3">
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <Users size={15} className="text-wolf-green" /> {vehicle.passengers} pasajeros
-          </span>
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <DoorOpen size={15} className="text-wolf-green" /> {vehicle.doors} puertas
-          </span>
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <Cog size={15} className="text-wolf-green" /> {vehicle.transmission}
-          </span>
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <Wind size={15} className="text-wolf-green" /> {vehicle.ac ? "A/C" : "Sin A/C"}
-          </span>
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <Briefcase size={15} className="text-wolf-green" /> {vehicle.bags} maletas
-          </span>
-          <span className="flex items-center gap-1 text-sm text-wolf-text-card">
-            <Fuel size={15} className="text-wolf-green" /> {vehicle.fuelType}
-          </span>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-4">
+          <Spec Icon={Users} label={`${vehicle.passengers} pax`} />
+          <Spec Icon={DoorOpen} label={`${vehicle.doors} puertas`} />
+          <Spec Icon={Cog} label={vehicle.transmission} />
+          <Spec Icon={Wind} label={vehicle.ac ? "A/C" : "Sin A/C"} />
+          <Spec Icon={Briefcase} label={`${vehicle.bags} maletas`} />
+          <Spec Icon={Fuel} label={vehicle.fuelType} />
         </div>
       </div>
 
-      <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-2 shrink-0 border-t md:border-t-0 md:border-l border-wolf-border/60 pt-3 md:pt-0 md:pl-6">
-        <div className="text-right">
-          <p className="text-xs text-wolf-text-card">{days} día{days !== 1 ? "s" : ""}</p>
-          <p className="text-2xl font-bold text-wolf-green">{formatCOP(total)}</p>
-          <p className="text-xs text-wolf-text-card">{formatCOP(vehicle.pricePerDay)} / día</p>
+      <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-3 shrink-0 border-t md:border-t-0 md:border-l border-wolf-border p-5 md:p-6 md:min-w-[220px] bg-wolf-bone/40">
+        <div className="text-left md:text-right">
+          <p className="eyebrow text-wolf-text-muted">
+            {days} día{days !== 1 ? "s" : ""} · Total
+          </p>
+          <p className="font-display font-black text-wolf-dark text-2xl md:text-3xl leading-none mt-1">
+            {formatCOP(total)}
+          </p>
+          <p className="font-mono text-[10px] text-wolf-text-muted uppercase tracking-wider mt-1">
+            {formatCOP(vehicle.pricePerDay)} / día
+          </p>
         </div>
-        <Link href={`/reservar?${params.toString()}`} className="btn-primary">
-          Seleccionar <ChevronRight size={16} />
+        <Link
+          href={`/reservar?${params.toString()}`}
+          className="btn-primary h-11 px-5 text-[11px] md:w-full"
+        >
+          Seleccionar
+          <ArrowRight size={14} />
         </Link>
       </div>
-    </div>
+    </article>
+  );
+}
+
+function Spec({
+  Icon,
+  label,
+}: {
+  Icon: React.ComponentType<{ size?: number; className?: string }>;
+  label: string;
+}) {
+  return (
+    <span className="flex items-center gap-1.5 text-[12px] text-wolf-text-muted font-mono uppercase tracking-wider">
+      <Icon size={13} className="text-wolf-red" />
+      {label}
+    </span>
   );
 }
 
@@ -256,37 +294,29 @@ function ReservationForm({
 
   if (submitted) {
     return (
-      <section className="bg-wolf-soft">
-        <div className="max-w-2xl mx-auto px-6 py-12">
-          <div className="card p-8 text-center">
-            <div className="w-16 h-16 bg-wolf-green-accent rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#004521"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+      <section className="bg-wolf-bone py-16">
+        <div className="max-w-2xl mx-auto px-4 lg:px-8">
+          <div className="card corner-brackets p-10 text-center">
+            <div className="w-16 h-16 bg-wolf-red flex items-center justify-center mx-auto mb-5">
+              <CheckCircle2 size={28} strokeWidth={2.5} className="text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-wolf-green mb-2">¡Reserva exitosa!</h2>
-            <p className="text-wolf-text mb-6">
+            <div className="kicker mb-4 justify-center">Confirmación</div>
+            <h2 className="font-display font-black text-wolf-dark text-3xl uppercase tracking-tight mb-3">
+              Reserva exitosa
+            </h2>
+            <p className="text-wolf-text-muted mb-7">
               Tu solicitud fue recibida. Te contactaremos pronto para confirmar.
             </p>
 
-            <div className="bg-wolf-soft rounded-md p-4 text-left mb-6 space-y-2 text-sm text-wolf-text">
-              <p><strong>Vehículo:</strong> {vehicle.name}</p>
-              {ciudad && <p><strong>Ciudad:</strong> {ciudad}</p>}
-              {recogida && <p><strong>Recogida:</strong> {recogida}</p>}
-              {devolucion && <p><strong>Devolución:</strong> {devolucion}</p>}
-              <p><strong>Días:</strong> {days}</p>
-              <p><strong>Total estimado:</strong> {formatCOP(total)}</p>
-              <p><strong>Nombre:</strong> {formData.nombre} {formData.apellido}</p>
-              <p><strong>Teléfono:</strong> {formData.telefono}</p>
+            <div className="bg-wolf-bone border border-wolf-dark p-5 text-left mb-7 space-y-1.5 text-sm text-wolf-text">
+              <ReceiptRow k="Vehículo" v={vehicle.name} />
+              {ciudad && <ReceiptRow k="Ciudad" v={ciudad} />}
+              {recogida && <ReceiptRow k="Recogida" v={recogida} />}
+              {devolucion && <ReceiptRow k="Devolución" v={devolucion} />}
+              <ReceiptRow k="Días" v={`${days}`} />
+              <ReceiptRow k="Total estimado" v={formatCOP(total)} />
+              <ReceiptRow k="Nombre" v={`${formData.nombre} ${formData.apellido}`} />
+              <ReceiptRow k="Teléfono" v={formData.telefono} />
             </div>
 
             <div className="flex flex-wrap gap-3 justify-center">
@@ -300,7 +330,7 @@ function ReservationForm({
               >
                 Confirmar por WhatsApp
               </a>
-              <Link href="/" className="btn-secondary">
+              <Link href="/" className="btn-ghost">
                 Volver al inicio
               </Link>
             </div>
@@ -312,27 +342,34 @@ function ReservationForm({
 
   return (
     <>
-      <section className="bg-white border-b border-wolf-border/60">
-        <div className="max-w-[1170px] mx-auto px-6 py-8">
+      <section className="relative bg-wolf-dark text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-40 pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[80%] bg-[radial-gradient(circle,rgba(213,0,38,0.25)_0%,transparent_60%)]" />
+        </div>
+        <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8 py-12">
           <Link
             href="/reservar"
-            className="text-wolf-green text-sm inline-flex items-center gap-1 mb-3 hover:underline"
+            className="text-wolf-on-dark/80 text-sm inline-flex items-center gap-2 mb-4 hover:text-wolf-red transition-colors font-display font-bold uppercase tracking-widest text-[11px]"
           >
-            <ArrowLeft size={16} /> Volver a resultados
+            <ArrowLeft size={14} /> Volver a resultados
           </Link>
-          <h1 className="text-2xl md:text-3xl font-bold text-wolf-green">
-            Reservar {vehicle.name}
+          <div className="kicker mb-3">Paso 2 · Datos del conductor</div>
+          <h1 className="display-md text-white">
+            Reservar <span className="text-wolf-red">{vehicle.name}</span>
           </h1>
         </div>
       </section>
 
-      <section className="bg-wolf-soft py-10">
-        <div className="max-w-[1170px] mx-auto px-6 grid lg:grid-cols-3 gap-8">
+      <section className="bg-wolf-bone py-12">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8 grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="card p-6 space-y-6">
-              <h2 className="text-lg font-bold text-wolf-green border-b border-wolf-border pb-3">
-                Datos del conductor
-              </h2>
+            <form onSubmit={handleSubmit} className="card p-8 md:p-10 space-y-6">
+              <div>
+                <div className="kicker mb-3">01 · Identidad</div>
+                <h2 className="font-display font-bold text-wolf-dark text-xl uppercase tracking-tight border-b border-wolf-border pb-4">
+                  Datos del conductor
+                </h2>
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field
                   label="Nombre *"
@@ -369,85 +406,99 @@ function ReservationForm({
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-wolf-text mb-1">
-                  Observaciones
-                </label>
+                <label className="field-label">Observaciones</label>
                 <textarea
                   rows={3}
                   value={formData.observaciones}
                   onChange={(e) =>
                     setFormData({ ...formData, observaciones: e.target.value })
                   }
-                  className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+                  className="field-light h-auto py-3"
                   placeholder="Hora de recogida, lugar específico, etc."
                 />
               </div>
 
-              <div className="bg-wolf-soft border border-wolf-border rounded-md p-4 text-sm text-wolf-text">
-                <strong>Nota:</strong> El pago se realiza al momento de la entrega del vehículo. Esta reserva asegura tu disponibilidad. Nuestro equipo te contactará para confirmar.
+              <div className="border-l-2 border-wolf-red pl-4 py-1 text-sm text-wolf-text-muted">
+                <strong className="text-wolf-dark">Pago al recibir:</strong> Esta reserva asegura tu disponibilidad.
+                Nuestro equipo te contactará para confirmar.
               </div>
 
               <button type="submit" className="btn-primary w-full">
                 Confirmar reserva
+                <ArrowRight size={14} />
               </button>
             </form>
           </div>
 
           <div>
-            <div className="card p-6 sticky top-8">
-              <h3 className="font-bold text-wolf-green text-base mb-4">Resumen de reserva</h3>
-
-              <div className="bg-wolf-soft rounded-md p-3 mb-4">
-                <p className="font-bold text-wolf-green">{vehicle.name}</p>
-                <p className="text-sm text-wolf-text-card">
-                  {vehicle.category} | {vehicle.transmission}
+            <div className="card-dark corner-brackets p-7 sticky top-8">
+              <div className="kicker kicker-light mb-4">Resumen</div>
+              <div className="pb-5 mb-5 border-b border-wolf-hairline">
+                <p className="font-display font-bold text-white text-xl uppercase tracking-tight">
+                  {vehicle.name}
+                </p>
+                <p className="font-mono text-[11px] uppercase tracking-widest text-wolf-on-dark/60 mt-1">
+                  {vehicle.category} · {vehicle.transmission}
                 </p>
               </div>
 
-              <div className="space-y-2 text-sm text-wolf-text mb-4">
+              <div className="space-y-3 text-sm text-wolf-on-dark/80 mb-6">
                 {ciudad && (
                   <div className="flex items-center gap-2">
-                    <MapPin size={15} className="text-wolf-green" />
+                    <MapPin size={14} className="text-wolf-red" />
                     <span>{ciudad}</span>
                   </div>
                 )}
                 {recogida && (
                   <div className="flex items-center gap-2">
-                    <Calendar size={15} className="text-wolf-green" />
-                    <span>Recogida: {recogida}</span>
+                    <Calendar size={14} className="text-wolf-red" />
+                    <span className="font-mono text-xs">Recogida · {recogida}</span>
                   </div>
                 )}
                 {devolucion && (
                   <div className="flex items-center gap-2">
-                    <Calendar size={15} className="text-wolf-green" />
-                    <span>Devolución: {devolucion}</span>
+                    <Calendar size={14} className="text-wolf-blue" />
+                    <span className="font-mono text-xs">Devolución · {devolucion}</span>
                   </div>
                 )}
               </div>
 
-              <div className="border-t border-wolf-border pt-3 space-y-2 text-sm">
-                <div className="flex justify-between text-wolf-text">
+              <div className="border-t border-wolf-hairline pt-4 space-y-2 text-sm">
+                <div className="flex justify-between text-wolf-on-dark/80">
                   <span>Tarifa diaria</span>
-                  <span className="font-semibold">{formatCOP(vehicle.pricePerDay)}</span>
+                  <span className="font-mono">{formatCOP(vehicle.pricePerDay)}</span>
                 </div>
-                <div className="flex justify-between text-wolf-text">
+                <div className="flex justify-between text-wolf-on-dark/80">
                   <span>Días</span>
-                  <span className="font-semibold">{days}</span>
+                  <span className="font-mono">{days}</span>
                 </div>
-                <div className="flex justify-between text-base font-bold border-t border-wolf-border pt-2 mt-2">
-                  <span className="text-wolf-text">Total estimado</span>
-                  <span className="text-wolf-green">{formatCOP(total)}</span>
+                <div className="flex justify-between items-baseline border-t border-wolf-hairline pt-3 mt-3">
+                  <span className="eyebrow text-wolf-on-dark/60">Total est.</span>
+                  <span className="font-display font-black text-white text-2xl">
+                    {formatCOP(total)}
+                  </span>
                 </div>
               </div>
 
-              <p className="text-xs text-wolf-text-card mt-3">
-                * Precio no incluye combustible. Seguro básico incluido. Extras sujetos a disponibilidad.
+              <p className="text-[10px] text-wolf-on-dark/50 mt-5 font-mono uppercase tracking-widest">
+                * No incluye combustible · Seguro básico incluido
               </p>
             </div>
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+function ReceiptRow({ k, v }: { k: string; v: string }) {
+  return (
+    <p className="flex justify-between gap-3">
+      <span className="font-display font-bold uppercase text-[10px] tracking-widest text-wolf-text-muted pt-1">
+        {k}
+      </span>
+      <span className="text-right">{v}</span>
+    </p>
   );
 }
 
@@ -466,13 +517,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-wolf-text mb-1">{label}</label>
+      <label className="field-label">{label}</label>
       <input
         type={type}
         required={label.includes("*")}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+        className="field-light"
         placeholder={placeholder}
       />
     </div>
@@ -483,10 +534,12 @@ export default function ReservarPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-wolf-soft flex items-center justify-center">
+        <div className="min-h-[60vh] bg-wolf-dark flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wolf-green mx-auto"></div>
-            <p className="mt-4 text-wolf-text">Cargando...</p>
+            <div className="animate-spin h-10 w-10 border-2 border-wolf-red border-t-transparent mx-auto"></div>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-widest text-white">
+              Cargando…
+            </p>
           </div>
         </div>
       }

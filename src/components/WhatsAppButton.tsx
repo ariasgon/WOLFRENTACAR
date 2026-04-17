@@ -11,10 +11,16 @@ export default function WhatsAppButton() {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-wolf-green text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg animate-pulse-green hover:bg-wolf-green-accent hover:text-wolf-green-cta-text transition-colors"
+      className="fixed bottom-6 right-6 z-40 group"
       aria-label="Contactar por WhatsApp"
     >
-      <MessageCircle size={26} strokeWidth={2} />
+      <span className="absolute -top-2 -right-2 z-10 bg-wolf-blue text-white font-display text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5">
+        24h
+      </span>
+      <span className="relative flex items-center gap-3 bg-wolf-red text-white pl-4 pr-5 py-3 font-display font-bold text-[11px] tracking-[0.16em] uppercase animate-pulse-red hover:bg-wolf-ink transition-colors">
+        <MessageCircle size={20} strokeWidth={2.2} />
+        <span className="hidden sm:inline">WhatsApp</span>
+      </span>
     </a>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 
 const WHATSAPP_URL =
@@ -23,40 +24,58 @@ export default function ContactoPage() {
 
   return (
     <>
-      <section className="bg-white border-b border-wolf-border/60">
-        <div className="max-w-[1170px] mx-auto px-6 py-10">
-          <p className="text-xs text-wolf-text-card uppercase tracking-wider">
-            Inicio · Contacto
-          </p>
-          <h1 className="text-2xl md:text-3xl font-bold text-wolf-green mt-2">
-            Envíanos tu mensaje
+      <section className="relative bg-wolf-dark text-white overflow-hidden bg-noise">
+        <div className="absolute inset-0 opacity-60 pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[80%] bg-[radial-gradient(circle,rgba(213,0,38,0.3)_0%,transparent_60%)]" />
+        </div>
+        <span
+          aria-hidden="true"
+          className="absolute -left-4 bottom-[-40%] font-display font-black leading-none select-none pointer-events-none"
+          style={{
+            fontSize: "clamp(170px, 22vw, 340px)",
+            color: "transparent",
+            WebkitTextStroke: "1px rgba(233,230,223,0.06)",
+          }}
+        >
+          CONTACTO
+        </span>
+        <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8 py-16 md:py-24">
+          <div className="flex items-center gap-3 mb-6 text-[10px] font-display font-bold tracking-[0.22em] uppercase text-wolf-on-dark/60">
+            <Link href="/" className="hover:text-wolf-red transition-colors">
+              Inicio
+            </Link>
+            <span>·</span>
+            <span>Contacto</span>
+          </div>
+          <div className="kicker mb-5">Habla con la manada</div>
+          <h1 className="display-xl text-white">
+            Envíanos tu<br/>
+            <span className="text-wolf-red">mensaje</span>.
           </h1>
-          <p className="text-wolf-text text-sm mt-2 max-w-2xl">
-            ¿Tienes alguna pregunta? Estamos aquí para ayudarte.
+          <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
+            ¿Tienes alguna pregunta? Estamos aquí para ayudarte por cualquier canal.
           </p>
         </div>
       </section>
 
-      <section className="bg-wolf-soft">
-        <div className="max-w-[1170px] mx-auto px-6 py-10 grid lg:grid-cols-3 gap-8">
-          <div className="space-y-6">
-            <div className="card p-6">
-              <h2 className="text-lg font-bold text-wolf-green mb-4">
-                Información de contacto
-              </h2>
-              <ul className="space-y-4 text-sm">
+      <section className="bg-wolf-bone py-16">
+        <div className="max-w-[1400px] mx-auto px-4 lg:px-8 grid lg:grid-cols-3 gap-6">
+          <aside className="space-y-4">
+            <div className="card-dark corner-brackets p-6">
+              <h2 className="kicker kicker-light mb-5">Canales</h2>
+              <ul className="space-y-5 text-sm">
                 <ContactItem Icon={Phone} title="Teléfono">
                   <a
                     href="tel:+573028491534"
-                    className="text-wolf-text hover:text-wolf-green transition-colors"
+                    className="font-mono text-white hover:text-wolf-red transition-colors"
                   >
                     +57 302 849 1534
                   </a>
                 </ContactItem>
-                <ContactItem Icon={Mail} title="Correo">
+                <ContactItem Icon={Mail} title="Email">
                   <a
                     href="mailto:info@wolfrentacarcol.com"
-                    className="text-wolf-text hover:text-wolf-green transition-colors"
+                    className="text-white hover:text-wolf-blue transition-colors break-all"
                   >
                     info@wolfrentacarcol.com
                   </a>
@@ -66,16 +85,16 @@ export default function ContactoPage() {
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-wolf-text hover:text-wolf-green transition-colors"
+                    className="font-mono text-white hover:text-wolf-red transition-colors"
                   >
                     +57 302 849 1534
                   </a>
                 </ContactItem>
                 <ContactItem Icon={Clock} title="Horario">
-                  <span className="text-wolf-text">Lun - Sáb: 8:00 AM - 6:00 PM</span>
+                  <span className="text-white">Lun – Sáb · 08:00 – 18:00</span>
                 </ContactItem>
                 <ContactItem Icon={MapPin} title="Ciudades">
-                  <span className="text-wolf-text">
+                  <span className="text-white">
                     Bogotá, Medellín, Cali, Cartagena, Barranquilla, Pereira
                   </span>
                 </ContactItem>
@@ -86,23 +105,26 @@ export default function ContactoPage() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="card block p-5 text-center bg-wolf-green text-white"
+              className="block p-5 bg-wolf-red text-white text-center font-display font-bold text-[12px] uppercase tracking-[0.22em] hover:bg-wolf-ink transition-colors"
             >
-              <MessageCircle size={28} className="mx-auto mb-2 text-wolf-green-accent" />
-              <span className="font-bold">Chatea con nosotros por WhatsApp</span>
+              <MessageCircle size={22} className="mx-auto mb-2" />
+              Chatea con nosotros
+              <span className="block mt-1 text-[10px] text-white/80 tracking-[0.28em]">
+                WhatsApp 24h
+              </span>
             </a>
-          </div>
+          </aside>
 
           <div className="lg:col-span-2">
             {submitted ? (
-              <div className="card p-8 text-center">
-                <div className="w-16 h-16 bg-wolf-green-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="card corner-brackets p-10 text-center">
+                <div className="w-16 h-16 bg-wolf-red flex items-center justify-center mx-auto mb-5">
                   <svg
-                    width="32"
-                    height="32"
+                    width="28"
+                    height="28"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#004521"
+                    stroke="#FFFFFF"
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -110,8 +132,10 @@ export default function ContactoPage() {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
-                <h2 className="text-xl font-bold text-wolf-green mb-2">¡Mensaje enviado!</h2>
-                <p className="text-wolf-text mb-6">
+                <h2 className="font-display font-black text-wolf-dark text-2xl uppercase tracking-tight mb-2">
+                  Mensaje enviado
+                </h2>
+                <p className="text-wolf-text-muted mb-6">
                   Hemos recibido tu mensaje. Nuestro equipo te responderá pronto.
                 </p>
                 <button
@@ -131,9 +155,10 @@ export default function ContactoPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="card p-6 md:p-8">
-                <h2 className="text-lg font-bold text-wolf-green mb-6">
-                  Envíanos un mensaje
+              <form onSubmit={handleSubmit} className="card p-8 md:p-10">
+                <div className="kicker mb-4">Formulario</div>
+                <h2 className="font-display font-black text-wolf-dark text-2xl md:text-3xl uppercase tracking-tight mb-7">
+                  Cuéntanos.
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
                   <FormField
@@ -157,16 +182,14 @@ export default function ContactoPage() {
                     placeholder="+57 300 000 0000"
                   />
                   <div>
-                    <label className="block text-sm font-semibold text-wolf-text mb-1">
-                      Asunto *
-                    </label>
+                    <label className="field-label">Asunto *</label>
                     <select
                       required
                       value={formData.asunto}
                       onChange={(e) =>
                         setFormData({ ...formData, asunto: e.target.value })
                       }
-                      className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent bg-white"
+                      className="field-light"
                     >
                       <option value="">Seleccionar</option>
                       <option value="cotizacion">Cotización</option>
@@ -177,10 +200,8 @@ export default function ContactoPage() {
                     </select>
                   </div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold text-wolf-text mb-1">
-                    Mensaje *
-                  </label>
+                <div className="mb-5">
+                  <label className="field-label">Mensaje *</label>
                   <textarea
                     rows={5}
                     required
@@ -188,12 +209,12 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, mensaje: e.target.value })
                     }
-                    className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+                    className="field-light h-auto py-3"
                     placeholder="Cuéntanos cómo podemos ayudarte..."
                   />
                 </div>
                 <button type="submit" className="btn-primary w-full">
-                  <Send size={18} />
+                  <Send size={16} />
                   Enviar mensaje
                 </button>
               </form>
@@ -216,11 +237,11 @@ function ContactItem({
 }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="w-9 h-9 rounded-full bg-wolf-green-accent flex items-center justify-center shrink-0">
-        <Icon size={16} className="text-wolf-green-cta-text" />
+      <span className="w-9 h-9 bg-wolf-red flex items-center justify-center shrink-0">
+        <Icon size={14} className="text-white" />
       </span>
-      <div>
-        <p className="font-semibold text-wolf-green">{title}</p>
+      <div className="min-w-0">
+        <p className="eyebrow text-wolf-on-dark/50 mb-1">{title}</p>
         {children}
       </div>
     </li>
@@ -242,14 +263,14 @@ function FormField({
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-wolf-text mb-1">{label}</label>
+      <label className="field-label">{label}</label>
       <input
         type={type}
         required={label.includes("*")}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-3 py-2.5 rounded-md border border-wolf-border text-sm focus:outline-none focus:ring-2 focus:ring-wolf-green-accent"
+        className="field-light"
       />
     </div>
   );
