@@ -14,29 +14,30 @@ export default function FlotaPage() {
 
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-wolf-dark py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-heading">
-            Nuestra <span className="text-wolf-red">Flota</span>
+      <section className="bg-white border-b border-wolf-border/60">
+        <div className="max-w-[1170px] mx-auto px-6 py-10">
+          <p className="text-xs text-wolf-text-card uppercase tracking-wider">
+            Inicio · Categorías de vehículos
+          </p>
+          <h1 className="text-2xl md:text-3xl font-bold text-wolf-green mt-2">
+            Categorías de vehículos
           </h1>
-          <p className="mt-3 text-gray-400 max-w-2xl mx-auto">
-            Vehículos para cada necesidad. Desde compactos económicos hasta SUVs premium. Todos con seguro y mantenimiento al día.
+          <p className="text-wolf-text text-sm mt-2 max-w-2xl">
+            Vehículos para cada necesidad. Compactos económicos hasta SUVs premium. Todos con seguro y mantenimiento al día.
           </p>
         </div>
       </section>
 
-      {/* Filters & Grid */}
-      <section className="py-12 bg-wolf-light">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Category filters */}
-          <div className="flex flex-wrap gap-3 mb-8 justify-center">
+      <section className="bg-wolf-soft">
+        <div className="max-w-[1170px] mx-auto px-6 py-10">
+          {/* Category chips */}
+          <div className="flex flex-wrap gap-2 mb-6">
             <button
               onClick={() => setActiveCategory("all")}
-              className={`px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition-colors ${
+              className={`px-4 h-9 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors ${
                 activeCategory === "all"
-                  ? "bg-wolf-red text-white"
-                  : "bg-white text-wolf-text border border-gray-200 hover:border-wolf-red hover:text-wolf-red"
+                  ? "bg-wolf-green text-white"
+                  : "bg-white text-wolf-green border border-wolf-green hover:bg-wolf-green hover:text-white"
               }`}
             >
               Todos
@@ -45,10 +46,10 @@ export default function FlotaPage() {
               <button
                 key={cat.slug}
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition-colors ${
+                className={`px-4 h-9 rounded-full text-xs font-semibold uppercase tracking-wide transition-colors ${
                   activeCategory === cat.slug
-                    ? "bg-wolf-red text-white"
-                    : "bg-white text-wolf-text border border-gray-200 hover:border-wolf-red hover:text-wolf-red"
+                    ? "bg-wolf-green text-white"
+                    : "bg-white text-wolf-green border border-wolf-green hover:bg-wolf-green hover:text-white"
                 }`}
               >
                 {cat.name}
@@ -56,12 +57,10 @@ export default function FlotaPage() {
             ))}
           </div>
 
-          {/* Results count */}
-          <p className="text-sm text-wolf-text-light mb-6">
+          <p className="text-sm text-wolf-text-card mb-6">
             {filteredVehicles.length} vehículo{filteredVehicles.length !== 1 ? "s" : ""} disponible{filteredVehicles.length !== 1 ? "s" : ""}
           </p>
 
-          {/* Vehicle grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredVehicles.map((vehicle) => (
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
@@ -70,7 +69,7 @@ export default function FlotaPage() {
 
           {filteredVehicles.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-wolf-text-light text-lg">
+              <p className="text-wolf-text-card text-base">
                 No hay vehículos disponibles en esta categoría.
               </p>
             </div>

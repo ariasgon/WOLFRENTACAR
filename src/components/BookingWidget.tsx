@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, Calendar, Search } from "lucide-react";
+import { MapPin, Calendar, Clock } from "lucide-react";
 import { locations } from "@/lib/locations";
 
 interface BookingWidgetProps {
-  variant?: "hero" | "inline" | "sidebar";
+  variant?: "header" | "panel";
 }
 
-export default function BookingWidget({ variant = "hero" }: BookingWidgetProps) {
+export default function BookingWidget({ variant = "header" }: BookingWidgetProps) {
   const router = useRouter();
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -20,105 +20,92 @@ export default function BookingWidget({ variant = "hero" }: BookingWidgetProps) 
 
   const [ciudad, setCiudad] = useState("");
   const [fechaRecogida, setFechaRecogida] = useState(formatDate(tomorrow));
-  const [fechaDevolucion, setFechaDevolucion] = useState(formatDate(dayAfter));
+  const [horaRecogida, setHoraRecogida] = useState("10:00");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams({
       ciudad,
       recogida: fechaRecogida,
-      devolucion: fechaDevolucion,
+      hora: horaRecogida,
+      devolucion: formatDate(dayAfter),
     });
     router.push(`/reservar?${params.toString()}`);
   };
 
-  const isHero = variant === "hero";
-
   return (
     <form
       onSubmit={handleSubmit}
-      className={`${
-        isHero
-          ? "bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-8"
-          : variant === "sidebar"
-          ? "bg-white rounded-xl shadow-lg p-5"
-          : "bg-wolf-light rounded-xl p-5"
-      }`}
+      className={
+        variant === "panel"
+          ? "bg-wolf-green p-5 rounded-md"
+          : ""
+      }
     >
-      {isHero && (
-        <h2 className="text-xl md:text-2xl font-bold text-wolf-dark mb-5 font-heading">
-          Reserva tu vehículo
-        </h2>
-      )}
-
-      <div
-        className={`grid gap-4 ${
-          isHero ? "md:grid-cols-4" : "grid-cols-1"
-        }`}
-      >
-        {/* City */}
-        <div>
-          <label className="block text-sm font-semibold text-wolf-text mb-1.5">
-            <MapPin size={14} className="inline mr-1 text-wolf-blue" />
-            Ciudad de recogida
-          </label>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_180px_180px_auto] gap-3 items-center">
+        {/* Location */}
+        <div className="relative">
           <select
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
-            className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white text-wolf-text text-sm focus:outline-none focus:ring-2 focus:ring-wolf-blue focus:border-transparent"
+            className="field appearance-none pr-12"
+            aria-label="Local de retirada"
           >
-            <option value="">Seleccionar ciudad</option>
+            <option value="">Informa el local de retirada (ej: Bogotá, Medellín)</option>
             {locations.map((loc) => (
               <option key={loc.id} value={loc.id}>
                 {loc.city}
               </option>
             ))}
           </select>
+          <MapPin
+            size={20}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
+          />
         </div>
 
-        {/* Pickup date */}
-        <div>
-          <label className="block text-sm font-semibold text-wolf-text mb-1.5">
-            <Calendar size={14} className="inline mr-1 text-wolf-blue" />
-            Fecha de recogida
-          </label>
+        {/* Date */}
+        <div className="relative">
           <input
             type="date"
             value={fechaRecogida}
             onChange={(e) => setFechaRecogida(e.target.value)}
             min={formatDate(new Date())}
             required
-            className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white text-wolf-text text-sm focus:outline-none focus:ring-2 focus:ring-wolf-blue focus:border-transparent"
+            className="field pr-12"
+            aria-label="Fecha"
+          />
+          <Calendar
+            size={20}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
           />
         </div>
 
-        {/* Return date */}
-        <div>
-          <label className="block text-sm font-semibold text-wolf-text mb-1.5">
-            <Calendar size={14} className="inline mr-1 text-wolf-blue" />
-            Fecha de devolución
-          </label>
-          <input
-            type="date"
-            value={fechaDevolucion}
-            onChange={(e) => setFechaDevolucion(e.target.value)}
-            min={fechaRecogida}
-            required
-            className="w-full px-3 py-2.5 rounded-lg border border-gray-300 bg-white text-wolf-text text-sm focus:outline-none focus:ring-2 focus:ring-wolf-blue focus:border-transparent"
+        {/* Hour */}
+        <div className="relative">
+          <select
+            value={horaRecogida}
+            onChange={(e) => setHoraRecogida(e.target.value)}
+            className="field appearance-none pr-12"
+            aria-label="Hora"
+          >
+            {Array.from({ length: 11 }, (_, i) => 8 + i).map((h) => (
+              <option key={h} value={`${h.toString().padStart(2, "0")}:00`}>
+                {`${h.toString().padStart(2, "0")}:00`}
+              </option>
+            ))}
+          </select>
+          <Clock
+            size={20}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-wolf-green pointer-events-none"
           />
         </div>
 
         {/* Submit */}
-        <div className={isHero ? "flex items-end" : ""}>
-          <button
-            type="submit"
-            className="w-full bg-wolf-red hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-bold uppercase tracking-wider text-sm transition-colors flex items-center justify-center gap-2"
-          >
-            <Search size={18} />
-            Buscar Vehículos
-          </button>
-        </div>
+        <button type="submit" className="btn-primary md:w-auto w-full">
+          Reservar
+        </button>
       </div>
     </form>
   );
