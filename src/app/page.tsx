@@ -8,12 +8,12 @@ import {
   ArrowRight,
   Plane,
   Building2,
+  MapPin,
   Star,
 } from "lucide-react";
 import FleetCarousel from "@/components/FleetCarousel";
 import BookingWidget from "@/components/BookingWidget";
 import { vehicles } from "@/lib/vehicles";
-import { locations } from "@/lib/locations";
 
 const benefits = [
   {
@@ -42,14 +42,20 @@ const benefits = [
   },
 ];
 
-const cityBlurbs: Record<string, string> = {
-  bogota: "El Dorado · Zona Norte",
-  medellin: "J. M. Córdova · El Poblado",
-  cali: "Alfonso Bonilla Aragón",
-  cartagena: "Rafael Núñez · Bocagrande",
-  barranquilla: "Ernesto Cortissoz",
-  pereira: "Matecaña · Centro",
-};
+const pickupPoints = [
+  {
+    tag: "Aeropuerto",
+    title: "El Dorado · BOG",
+    body: "Te esperamos apenas aterrizas. Nos envías el número de vuelo y cuadramos la entrega en la puerta.",
+    Icon: Plane,
+  },
+  {
+    tag: "Zona norte",
+    title: "Chicó · Usaquén · Santa Bárbara",
+    body: "Recogida o devolución en tu hotel, oficina o dirección. Coordinamos horario por WhatsApp.",
+    Icon: MapPin,
+  },
+];
 
 export default function HomePage() {
   return (
@@ -87,7 +93,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-10 text-[10px] font-display font-semibold tracking-[0.28em] uppercase text-wolf-on-dark/60">
             <span className="flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full bg-wolf-red animate-blink" />
-              Bogotá · Medellín · Cali · +3 ciudades
+              Bogotá · El Dorado · Zona norte
             </span>
             <span className="hidden md:inline">Hola, ¿a dónde vamos?</span>
             <span className="hidden md:inline">+57 302 849 1534</span>
@@ -112,8 +118,8 @@ export default function HomePage() {
                   <div className="h-10 w-px bg-white/20" />
                 </div>
                 <p className="text-wolf-on-dark/80 text-base md:text-lg leading-relaxed max-w-xl">
-                  Alquilamos carros sin complicaciones en seis ciudades del país. Tú eliges el
-                  carro y la ruta. Nosotros ponemos el resto —{" "}
+                  Alquilamos carros en Bogotá sin complicaciones. Tú eliges el carro y la ruta —
+                  nosotros ponemos el resto:{" "}
                   <span className="text-white">seguro incluido, sin letra chica</span>.
                 </p>
               </div>
@@ -130,7 +136,7 @@ export default function HomePage() {
 
               <div className="mt-10 grid grid-cols-3 gap-4 max-w-xl">
                 {[
-                  { k: "Ciudades", v: "06" },
+                  { k: "Punto base", v: "BOG" },
                   { k: "Carros disponibles", v: "08" },
                   { k: "Soporte WhatsApp", v: "24h" },
                 ].map((s, i) => (
@@ -213,22 +219,20 @@ export default function HomePage() {
 
         <div className="relative bg-wolf-red overflow-hidden border-y border-wolf-red-deep">
           <div className="ticker-strip flex w-max animate-marquee py-2.5">
-            {Array.from({ length: 10 }).map((_, i) => (
+            {Array.from({ length: 12 }).map((_, i) => (
               <span
                 key={i}
                 className="mx-8 font-display font-semibold text-[11px] tracking-[0.32em] uppercase text-white/95 inline-flex items-center gap-5"
               >
                 Bogotá
                 <span className="w-1 h-1 rounded-full bg-white/50" />
-                Medellín
+                El Dorado
                 <span className="w-1 h-1 rounded-full bg-white/50" />
-                Cali
+                Zona Norte
                 <span className="w-1 h-1 rounded-full bg-white/50" />
-                Cartagena
+                Seguro incluido
                 <span className="w-1 h-1 rounded-full bg-white/50" />
-                Barranquilla
-                <span className="w-1 h-1 rounded-full bg-white/50" />
-                Pereira
+                WhatsApp 24h
                 <span className="w-1 h-1 rounded-full bg-white/50" />
               </span>
             ))}
@@ -276,7 +280,7 @@ export default function HomePage() {
             </div>
             <div className="lg:col-span-7 lg:pt-8">
               <p className="text-wolf-on-dark/80 text-base md:text-lg leading-relaxed max-w-xl">
-                Somos Wolf Renta Car SAS. Un equipo chiquito, colombiano, que hace una sola cosa:
+                Somos Wolf Renta Car SAS. Un equipo colombiano que hace una sola cosa:
                 entregarte un carro listo, limpio y seguro, cuando lo necesitas.
               </p>
             </div>
@@ -309,61 +313,52 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CITIES */}
+      {/* PICKUP POINTS — Bogotá only */}
       <section className="relative bg-wolf-bone py-16 md:py-24">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-10 mb-10">
             <div className="lg:col-span-5">
-              <div className="kicker mb-4">Red nacional · 6 ciudades</div>
+              <div className="kicker mb-4">Dónde te entregamos</div>
               <h2 className="display-lg text-wolf-dark">
-                Estamos cerca, <span className="text-wolf-red">donde tú estés</span>.
+                Estamos en <span className="text-wolf-red">Bogotá</span>.
               </h2>
             </div>
             <div className="lg:col-span-7 lg:pt-8">
               <p className="text-wolf-text-muted text-base max-w-xl">
-                Recogemos y entregamos el carro en aeropuertos y puntos estratégicos de Bogotá,
-                Medellín, Cali, Cartagena, Barranquilla y Pereira.
+                Por ahora operamos en Bogotá. Te recogemos en el Dorado, en la zona norte o donde
+                tú nos digas dentro de la ciudad. Dinos hora y lugar y nos cuadramos.
               </p>
             </div>
           </div>
 
-          <ul className="border-t border-wolf-dark/80">
-            {locations.map((loc, i) => (
-              <li
-                key={loc.id}
-                className="border-b border-wolf-dark/15 group"
+          <div className="grid md:grid-cols-2 gap-5">
+            {pickupPoints.map((p, i) => (
+              <article
+                key={p.title}
+                className={`group bg-white border border-wolf-border p-6 md:p-8 flex items-start gap-5 hover:border-wolf-red transition-colors animate-fade-in-up stagger-${i + 1}`}
               >
-                <Link
-                  href={`/ubicaciones#${loc.id}`}
-                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 sm:py-7 hover:bg-wolf-dark hover:text-white hover:px-6 transition-all duration-300 animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}
-                >
-                  <div className="flex items-center gap-6">
-                    <span className="font-mono font-bold text-[12px] text-wolf-red w-10 shrink-0 tracking-wider">
-                      /{String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-display font-bold text-2xl md:text-3xl tracking-tight text-wolf-dark group-hover:text-white transition-colors">
-                        {loc.city}
-                      </h3>
-                      <p className="text-[12px] text-wolf-text-muted font-mono uppercase tracking-wider mt-1 group-hover:text-wolf-on-dark/70 transition-colors">
-                        {cityBlurbs[loc.id] ?? loc.address}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-6">
-                    <span className="hidden md:flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-wolf-text-muted group-hover:text-wolf-on-dark/70 transition-colors">
-                      <Plane size={14} className="text-wolf-blue" />
-                      Te llevamos al aeropuerto
-                    </span>
-                    <span className="flex items-center gap-2 font-display text-[11px] uppercase tracking-[0.2em] text-wolf-red group-hover:text-white transition-colors">
-                      Ver agencia
-                      <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                <span className="font-mono font-bold text-[12px] text-wolf-red shrink-0 tracking-wider pt-1">
+                  /{String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <p.Icon size={18} className="text-wolf-blue" />
+                    <span className="font-mono text-[11px] uppercase tracking-widest text-wolf-text-muted">
+                      {p.tag}
                     </span>
                   </div>
-                </Link>
-              </li>
+                  <h3 className="font-display font-bold text-xl md:text-2xl text-wolf-dark tracking-tight">
+                    {p.title}
+                  </h3>
+                  <p className="text-wolf-text-muted text-sm mt-2">{p.body}</p>
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
+
+          <p className="text-wolf-text-muted text-sm mt-8">
+            Próximamente en más ciudades. ¿Nos quieres en otra? Escríbenos y te avisamos.
+          </p>
         </div>
       </section>
 
@@ -389,12 +384,12 @@ export default function HomePage() {
               </div>
               <blockquote className="font-display font-bold text-3xl md:text-5xl leading-[1.1] text-white tracking-tight">
                 <span className="text-wolf-red">“</span>
-                Lo pedí por WhatsApp y me lo llevaron hasta la puerta del hotel.
-                Cero vueltas, cero sorpresas — me ahorraron el día.
+                Lo pedí por WhatsApp y me lo llevaron al Dorado. Cero vueltas,
+                cero sorpresas — me ahorraron el día.
                 <span className="text-wolf-red">”</span>
               </blockquote>
               <p className="mt-5 font-mono text-[12px] uppercase tracking-widest text-wolf-on-dark/70">
-                Laura · Cartagena · 2026
+                Laura · Bogotá · 2026
               </p>
             </div>
 
@@ -403,7 +398,7 @@ export default function HomePage() {
                 { n: "500+", l: "Viajes completados" },
                 { n: "100%", l: "Seguro incluido" },
                 { n: "24h", l: "WhatsApp activo" },
-                { n: "06", l: "Ciudades · 08 carros" },
+                { n: "08", l: "Carros en flota" },
               ].map((s, i) => (
                 <div
                   key={s.l}

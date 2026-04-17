@@ -5,12 +5,16 @@ import { Phone, Mail, MessageCircle, MapPin, Clock, ArrowUpRight } from "lucide-
 const WHATSAPP_URL =
   "https://wa.me/573028491534?text=Hola%2C%20quiero%20información%20sobre%20alquiler%20de%20vehículos";
 
-const cities = ["Bogotá", "Medellín", "Cali", "Cartagena", "Barranquilla", "Pereira"];
+const pickupPoints = [
+  { label: "Aeropuerto El Dorado", href: "/ubicaciones#bogota" },
+  { label: "Zona norte · Chicó", href: "/ubicaciones#bogota" },
+  { label: "Usaquén · Santa Bárbara", href: "/ubicaciones#bogota" },
+];
 
 const nav = [
   { href: "/flota", label: "Flota" },
   { href: "/reservar", label: "Reservar" },
-  { href: "/ubicaciones", label: "Agencias" },
+  { href: "/ubicaciones", label: "Dónde estamos" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/empresas", label: "Empresas" },
   { href: "/fidelidad", label: "Fidelidad" },
@@ -31,7 +35,7 @@ export default function Footer() {
             >
               Hola, soy Wolf
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
-              Carros en 6 ciudades
+              Alquiler de carros en Bogotá
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
               Seguro incluido siempre
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
@@ -70,9 +74,8 @@ export default function Footer() {
                 Tú <span className="text-wolf-red">haces la ruta</span>.
               </p>
               <p className="text-wolf-on-dark/70 text-sm max-w-md leading-relaxed mb-6">
-                Wolf Renta Car SAS — somos un equipo chiquito y colombiano. Alquilamos carros
-                en seis ciudades del país, sin complicaciones y con alguien del otro lado
-                cuando escribes.
+                Wolf Renta Car SAS — un equipo colombiano que alquila carros en Bogotá sin
+                complicaciones, con alguien del otro lado del WhatsApp cuando escribes.
               </p>
 
               <div className="flex gap-0 border border-wolf-hairline w-max">
@@ -132,22 +135,25 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Cities */}
+            {/* Pickup points */}
             <div className="lg:col-span-2">
-              <h3 className="kicker kicker-light mb-5">Ciudades</h3>
+              <h3 className="kicker kicker-light mb-5">Dónde entregamos</h3>
               <ul className="space-y-2.5 text-sm">
-                {cities.map((c) => (
-                  <li key={c}>
+                {pickupPoints.map((p) => (
+                  <li key={p.label}>
                     <Link
-                      href={`/ubicaciones#${c.toLowerCase()}`}
+                      href={p.href}
                       className="flex items-center gap-2 text-wolf-on-dark/80 hover:text-white transition-colors"
                     >
                       <MapPin size={13} className="text-wolf-blue" />
-                      {c}
+                      {p.label}
                     </Link>
                   </li>
                 ))}
               </ul>
+              <p className="text-wolf-on-dark/50 text-[11px] mt-3">
+                Bogotá · Próximamente en más ciudades.
+              </p>
             </div>
 
             {/* Contact */}

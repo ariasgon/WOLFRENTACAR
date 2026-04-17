@@ -46,6 +46,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 120000,
     image: "/vehicles/compact.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "Dirección hidráulica", "Radio Bluetooth", "USB", "Vidrios eléctricos"],
     available: true,
   },
@@ -65,6 +67,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 115000,
     image: "/vehicles/compact2.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "Dirección hidráulica", "Radio Bluetooth", "Vidrios eléctricos"],
     available: true,
   },
@@ -84,6 +88,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 180000,
     image: "/vehicles/suv-compact.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "4x2", "Dirección hidráulica", "Radio Bluetooth", "USB", "Vidrios eléctricos", "Cámara de reversa"],
     available: true,
   },
@@ -103,6 +109,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 150000,
     image: "/vehicles/sedan.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "Transmisión automática", "Radio Bluetooth", "USB", "Vidrios eléctricos", "Airbags"],
     available: true,
   },
@@ -122,6 +130,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 250000,
     image: "/vehicles/suv.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1519440015707-8c8ad0b69e27?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "Automática", "4x2", "Radio pantalla táctil", "Cámara 360°", "Sensores de parqueo", "Techo panorámico"],
     available: true,
   },
@@ -141,6 +151,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Diésel",
     pricePerDay: 350000,
     image: "/vehicles/suv-premium.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "4x4", "Automática", "7 pasajeros", "Pantalla táctil", "Cámara de reversa", "Sensores de parqueo"],
     available: true,
   },
@@ -160,6 +172,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Diésel",
     pricePerDay: 400000,
     image: "/vehicles/van.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado", "15 pasajeros", "Equipaje amplio", "Radio", "Vidrios eléctricos"],
     available: true,
   },
@@ -179,6 +193,8 @@ export const vehicles: Vehicle[] = [
     fuelType: "Gasolina",
     pricePerDay: 450000,
     image: "/vehicles/premium.jpg",
+    imageUrl:
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=70",
     features: ["Aire acondicionado dual", "7 pasajeros", "Automática", "Pantalla táctil 8\"", "Apple CarPlay", "Android Auto", "Asientos en cuero", "Techo panorámico"],
     available: true,
   },

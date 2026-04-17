@@ -36,7 +36,7 @@ export default function NosotrosPage() {
           </div>
           <div className="kicker mb-5">Hola, somos Wolf</div>
           <h1 className="display-xl text-white">
-            Un equipo chiquito, <span className="text-wolf-red">colombiano</span>.
+            Un equipo <span className="text-wolf-red">colombiano</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
             Te contamos quiénes somos, por qué hacemos esto y qué nos mueve.
@@ -63,9 +63,9 @@ export default function NosotrosPage() {
                 una SUV para el fin de semana o una van para el equipo.
               </p>
               <p>
-                Estamos en <strong>Bogotá, Medellín, Cali, Cartagena, Barranquilla y Pereira</strong>.
-                Te recogemos en el aeropuerto, en el hotel o donde tú nos digas — tú solo dinos
-                a qué hora sales.
+                Por ahora operamos en <strong>Bogotá</strong>. Te recogemos en el aeropuerto
+                El Dorado, en la zona norte o donde tú nos digas dentro de la ciudad — tú solo
+                dinos a qué hora sales.
               </p>
             </div>
             <Link href="/contacto" className="btn-primary mt-8">
@@ -138,7 +138,7 @@ export default function NosotrosPage() {
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-wolf-dark">
             {[
-              { number: "06", label: "Ciudades", Icon: Shield },
+              { number: "BOG", label: "Base en Bogotá", Icon: Shield },
               { number: "500+", label: "Clientes satisfechos", Icon: Users },
               { number: "24h", label: "Soporte WhatsApp", Icon: Award },
               { number: "100%", label: "Seguro incluido", Icon: Shield },

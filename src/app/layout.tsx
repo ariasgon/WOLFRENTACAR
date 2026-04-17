@@ -6,15 +6,15 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
-  title: "Wolf Rent a Car | Alquiler de Vehículos en Colombia",
+  title: "Wolf Rent a Car | Alquiler de carros en Bogotá",
   description:
-    "Alquiler de autos y camionetas en Bogotá, Medellín, Cali, Cartagena, Barranquilla y Pereira. Servicio profesional y confiable. Wolf Renta Car SAS.",
+    "Alquiler de carros en Bogotá con entrega en El Dorado y la zona norte. Seguro incluido, sin letra chica. Wolf Renta Car SAS.",
   keywords:
-    "alquiler de carros, renta de vehículos, rent a car Colombia, alquiler Bogotá, alquiler Medellín, Wolf Rent a Car",
+    "alquiler de carros Bogotá, renta de vehículos Bogotá, rent a car Bogotá, alquiler aeropuerto El Dorado, Wolf Rent a Car",
   openGraph: {
-    title: "Wolf Rent a Car | Alquiler de Vehículos en Colombia",
+    title: "Wolf Rent a Car | Alquiler de carros en Bogotá",
     description:
-      "Empresa dedicada a la renta de vehículos particulares en las principales ciudades de Colombia.",
+      "Alquiler de carros particulares en Bogotá. Servicio profesional, seguro incluido y atención por WhatsApp.",
     type: "website",
     locale: "es_CO",
   },

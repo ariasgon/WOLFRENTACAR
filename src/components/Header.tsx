@@ -7,7 +7,7 @@ import { Menu, X, Phone, MessageCircle } from "lucide-react";
 
 const navLinks = [
   { href: "/flota", label: "Flota" },
-  { href: "/ubicaciones", label: "Agencias" },
+  { href: "/ubicaciones", label: "Dónde estamos" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/empresas", label: "Empresas" },
   { href: "/fidelidad", label: "Fidelidad" },

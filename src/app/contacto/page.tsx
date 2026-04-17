@@ -92,9 +92,9 @@ export default function ContactoPage() {
                 <ContactItem Icon={Clock} title="Horario">
                   <span className="text-white">Lun – Sáb · 08:00 – 18:00</span>
                 </ContactItem>
-                <ContactItem Icon={MapPin} title="Ciudades">
+                <ContactItem Icon={MapPin} title="Dónde operamos">
                   <span className="text-white">
-                    Bogotá, Medellín, Cali, Cartagena, Barranquilla, Pereira
+                    Bogotá · Aeropuerto El Dorado y zona norte
                   </span>
                 </ContactItem>
               </ul>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { locations } from "@/lib/locations";
 
 export const metadata = {
-  title: "Red de agencias | Wolf Rent a Car Colombia",
+  title: "Dónde te entregamos | Wolf Rent a Car Bogotá",
   description:
-    "Encuentra tu punto de recogida en Bogotá, Medellín, Cali, Cartagena, Barranquilla y Pereira.",
+    "Te entregamos el carro en el aeropuerto El Dorado o en la zona norte de Bogotá.",
 };
 
 export default function UbicacionesPage() {
@@ -32,15 +32,15 @@ export default function UbicacionesPage() {
               Inicio
             </Link>
             <span>·</span>
-            <span>Red de agencias</span>
+            <span>Dónde te entregamos</span>
           </div>
-          <div className="kicker kicker-blue mb-5">6 ciudades · te llevamos al aeropuerto</div>
+          <div className="kicker kicker-blue mb-5">Bogotá · te llevamos al Dorado</div>
           <h1 className="display-xl text-white">
-            Estamos donde <span className="text-wolf-blue">aterrizas</span>.
+            Dónde te <span className="text-wolf-blue">entregamos</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
-            Te entregamos el carro en el aeropuerto, el hotel o donde tú nos digas. Cuando
-            termines, lo devolvemos igual.
+            Te entregamos el carro en el aeropuerto El Dorado o en la zona norte de Bogotá.
+            Cuando termines, lo devolvemos igual — tú escoges el punto.
           </p>
         </div>
       </section>
