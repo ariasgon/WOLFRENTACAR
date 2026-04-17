@@ -39,23 +39,22 @@ export default function EmpresasPage() {
               <span>·</span>
               <span>Empresas</span>
             </div>
-            <div className="kicker kicker-blue mb-5">Movilidad corporativa</div>
+            <div className="kicker kicker-blue mb-5">Planes para empresas</div>
             <h1 className="display-xl text-white">
-              La flota de<br/>
-              tu <span className="text-wolf-blue">equipo</span>.
+              Movilidad para <span className="text-wolf-blue">tu equipo</span>.
             </h1>
             <ul className="mt-8 space-y-3 text-base text-white/90 max-w-lg">
               <li className="flex gap-3 items-start">
                 <span className="text-wolf-blue font-mono text-[10px] mt-2">/01</span>
-                Más oferta y reducción de costos
+                Tarifas preferenciales para tu compañía
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-wolf-blue font-mono text-[10px] mt-2">/02</span>
-                Condiciones comerciales adaptadas a tu negocio
+                Facturación electrónica y contratos a la medida
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-wolf-blue font-mono text-[10px] mt-2">/03</span>
-                Atención personalizada · Soporte 24h
+                Un asesor dedicado · Soporte cuando lo necesites
               </li>
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">

@@ -74,10 +74,9 @@ export default function FidelidadPage() {
             <span>·</span>
             <span>Fidelidad</span>
           </div>
-          <div className="kicker mb-5">Programa de lealtad</div>
+          <div className="kicker mb-5">Programa Fidelidad</div>
           <h1 className="display-xl text-white">
-            La manada<br />
-            <span className="text-wolf-red">te recompensa</span>.
+            Mientras más viajas, <span className="text-wolf-red">más ganas</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
             Te recompensamos por tus alquileres con Wolf. Conoce las categorías, beneficios

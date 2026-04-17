@@ -39,13 +39,13 @@ export default function MisReservasPage() {
             <span>·</span>
             <span>Mis reservas</span>
           </div>
-          <div className="kicker kicker-blue mb-5">Consulta de reserva</div>
+          <div className="kicker kicker-blue mb-5">Mis reservas</div>
           <h1 className="display-lg text-white">
-            Consulta tu<br/>
-            <span className="text-wolf-blue">reserva activa</span>.
+            ¿Dónde va tu <span className="text-wolf-blue">reserva</span>?
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-5">
-            Ingresa tu número de reserva y correo para ver el estado o realizar cambios.
+            Pon tu número de reserva y correo — te mostramos el estado y, si necesitas algo,
+            un botón directo a WhatsApp.
           </p>
         </div>
       </section>

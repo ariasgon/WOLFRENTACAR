@@ -14,6 +14,8 @@ export interface Vehicle {
   fuelType: string;
   pricePerDay: number;
   image: string;
+  /** Real car photo — when set, overrides the SVG silhouette in VehicleCard. */
+  imageUrl?: string;
   features: string[];
   available: boolean;
 }

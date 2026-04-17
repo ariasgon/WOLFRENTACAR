@@ -34,13 +34,12 @@ export default function NosotrosPage() {
             <span>·</span>
             <span>Sobre Wolf</span>
           </div>
-          <div className="kicker mb-5">Wolf Renta Car SAS</div>
+          <div className="kicker mb-5">Hola, somos Wolf</div>
           <h1 className="display-xl text-white">
-            Una manada<br/>
-            con <span className="text-wolf-red">propósito</span>.
+            Un equipo chiquito, <span className="text-wolf-red">colombiano</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
-            Conoce la historia, la visión y las personas detrás de Wolf Rent a Car Colombia.
+            Te contamos quiénes somos, por qué hacemos esto y qué nos mueve.
           </p>
         </div>
       </section>
@@ -50,24 +49,23 @@ export default function NosotrosPage() {
           <div className="lg:col-span-7">
             <div className="kicker mb-5">Nuestra historia</div>
             <h2 className="display-lg text-wolf-dark mb-6">
-              Movilidad<br/>
-              <span className="text-wolf-red">profesional.</span>
+              Alquilar un carro <span className="text-wolf-red">sin complicaciones</span>.
             </h2>
             <div className="space-y-5 text-wolf-text leading-relaxed text-base max-w-xl">
               <p>
-                Wolf Rent a Car Colombia es una empresa dedicada a la renta de vehículos
-                particulares en las principales ciudades del país. Nacimos con la misión de
-                ofrecer un servicio de alquiler profesional, confiable y personalizado.
+                Somos Wolf Rent a Car Colombia. Empezamos con una idea simple: alquilar carros
+                en Colombia sin trámites largos, sin letra chica y con alguien real del otro
+                lado del teléfono.
               </p>
               <p>
-                Bajo la dirección de <strong>Wolfart Bohórquez Peña</strong>, Director Comercial,
-                hemos construido una flota variada — desde compactos económicos hasta SUVs
-                premium — para turistas, empresas y viajeros.
+                Bajo la dirección de <strong>Wolfart Bohórquez Peña</strong>, hemos armado una
+                flota para distintos planes — desde un sedán para moverte por la ciudad hasta
+                una SUV para el fin de semana o una van para el equipo.
               </p>
               <p>
-                Con presencia en <strong>Bogotá, Medellín, Cali, Cartagena, Barranquilla y
-                Pereira</strong>, facilitamos la movilidad en las ciudades más importantes del
-                país con entrega en aeropuertos y puntos estratégicos.
+                Estamos en <strong>Bogotá, Medellín, Cali, Cartagena, Barranquilla y Pereira</strong>.
+                Te recogemos en el aeropuerto, en el hotel o donde tú nos digas — tú solo dinos
+                a qué hora sales.
               </p>
             </div>
             <Link href="/contacto" className="btn-primary mt-8">

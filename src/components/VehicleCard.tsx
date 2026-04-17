@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Users, Cog, Fuel, Briefcase, ArrowRight } from "lucide-react";
 import { Vehicle, formatCOP } from "@/lib/vehicles";
 
@@ -122,9 +123,8 @@ export default function VehicleCard({ vehicle, searchParams }: VehicleCardProps)
         </p>
       </div>
 
-      {/* Silhouette stage */}
-      <div className="relative mt-3 mx-3 h-[130px] bg-wolf-bone overflow-hidden">
-        {/* gridline backdrop */}
+      {/* Photo / Silhouette stage */}
+      <div className="relative mt-3 mx-3 h-[140px] bg-wolf-bone overflow-hidden">
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -133,14 +133,24 @@ export default function VehicleCard({ vehicle, searchParams }: VehicleCardProps)
             backgroundSize: "20px 20px",
           }}
         />
-        {/* red diagonal slash */}
-        <span className="absolute top-2 left-2 font-mono text-[9px] tracking-[0.2em] text-wolf-dark/60 uppercase">
+        <span className="absolute top-2 left-2 z-[2] font-mono text-[9px] tracking-[0.2em] text-wolf-dark/60 uppercase">
           W·{vehicle.id.slice(0, 6).toUpperCase()}
         </span>
-        <span className="absolute top-2 right-2 h-[2px] w-12 bg-wolf-red" />
-        <div className="vehicle-silhouette absolute inset-0 flex items-end justify-center pb-2 px-4">
-          <CarSilhouette category={vehicle.category} />
-        </div>
+        <span className="absolute top-2 right-2 z-[2] h-[2px] w-12 bg-wolf-red" />
+        {vehicle.imageUrl ? (
+          <Image
+            src={vehicle.imageUrl}
+            alt={`${vehicle.brand} ${vehicle.model}`}
+            fill
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 300px"
+            className="object-cover object-center"
+            unoptimized={vehicle.imageUrl.startsWith("http")}
+          />
+        ) : (
+          <div className="vehicle-silhouette absolute inset-0 flex items-end justify-center pb-2 px-4">
+            <CarSilhouette category={vehicle.category} />
+          </div>
+        )}
       </div>
 
       {/* Specs — industrial gauge strip */}

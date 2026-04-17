@@ -34,14 +34,13 @@ export default function UbicacionesPage() {
             <span>·</span>
             <span>Red de agencias</span>
           </div>
-          <div className="kicker kicker-blue mb-5">06 ciudades · entrega en aeropuerto</div>
+          <div className="kicker kicker-blue mb-5">6 ciudades · te llevamos al aeropuerto</div>
           <h1 className="display-xl text-white">
-            Tu carro<br/>
-            donde <span className="text-wolf-blue">aterrizas</span>.
+            Estamos donde <span className="text-wolf-blue">aterrizas</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
-            Presentes en las 6 principales ciudades de Colombia. Recoge y devuelve tu vehículo
-            en aeropuertos y puntos estratégicos.
+            Te entregamos el carro en el aeropuerto, el hotel o donde tú nos digas. Cuando
+            termines, lo devolvemos igual.
           </p>
         </div>
       </section>

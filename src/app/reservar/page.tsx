@@ -81,17 +81,17 @@ function ReservarContent() {
             <span>·</span>
             <span>Reservar</span>
           </div>
-          <div className="kicker mb-5">Disponibilidad en tiempo real</div>
+          <div className="kicker mb-5">Reservar mi carro</div>
           <h1 className="display-lg text-white">
             {ciudad ? (
               <>
-                Vehículos en<br />
-                <span className="text-wolf-red">{cityName}</span>.
+                Estos son los carros<br />
+                en <span className="text-wolf-red">{cityName}</span>.
               </>
             ) : (
               <>
-                Busca tu<br />
-                <span className="text-wolf-red">próximo viaje</span>.
+                ¿Cuándo y para<br />
+                dónde <span className="text-wolf-red">vamos</span>?
               </>
             )}
           </h1>
@@ -284,12 +284,46 @@ function ReservationForm({
     observaciones: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [bookingId, setBookingId] = useState<string | null>(null);
 
   const total = vehicle.pricePerDay * days;
+  const advance = Math.round(total * 0.1);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          vehicleId: vehicle.id,
+          ciudad,
+          recogida,
+          devolucion,
+          hora: "10:00",
+          customer: formData,
+        }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.ok) {
+        setSubmitError(
+          json?.error === "vehicle-not-available"
+            ? "Ese carro ya no está disponible. Prueba con otro."
+            : "No pudimos guardar tu reserva. Inténtalo de nuevo o escríbenos por WhatsApp."
+        );
+        setSubmitting(false);
+        return;
+      }
+      setBookingId(json.booking.id);
+      setSubmitted(true);
+    } catch {
+      setSubmitError("No pudimos guardar tu reserva. Revisa tu conexión.");
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -301,12 +335,17 @@ function ReservationForm({
               <CheckCircle2 size={28} strokeWidth={2.5} className="text-white" />
             </div>
             <div className="kicker mb-4 justify-center">Confirmación</div>
-            <h2 className="font-display font-black text-wolf-dark text-3xl uppercase tracking-tight mb-3">
-              Reserva exitosa
+            <h2 className="font-display font-bold text-wolf-dark text-3xl tracking-tight mb-3">
+              ¡Listo! Te confirmamos pronto.
             </h2>
-            <p className="text-wolf-text-muted mb-7">
-              Tu solicitud fue recibida. Te contactaremos pronto para confirmar.
+            <p className="text-wolf-text-muted mb-2">
+              Ya tenemos tu reserva. Te escribimos por WhatsApp para confirmar los detalles.
             </p>
+            {bookingId && (
+              <p className="font-mono text-[12px] text-wolf-red uppercase tracking-widest mb-5">
+                Reserva #{bookingId}
+              </p>
+            )}
 
             <div className="bg-wolf-bone border border-wolf-dark p-5 text-left mb-7 space-y-1.5 text-sm text-wolf-text">
               <ReceiptRow k="Vehículo" v={vehicle.name} />
@@ -315,6 +354,7 @@ function ReservationForm({
               {devolucion && <ReceiptRow k="Devolución" v={devolucion} />}
               <ReceiptRow k="Días" v={`${days}`} />
               <ReceiptRow k="Total estimado" v={formatCOP(total)} />
+              <ReceiptRow k="Anticipo sugerido (10 %)" v={formatCOP(advance)} />
               <ReceiptRow k="Nombre" v={`${formData.nombre} ${formData.apellido}`} />
               <ReceiptRow k="Teléfono" v={formData.telefono} />
             </div>
@@ -419,12 +459,24 @@ function ReservationForm({
               </div>
 
               <div className="border-l-2 border-wolf-red pl-4 py-1 text-sm text-wolf-text-muted">
-                <strong className="text-wolf-dark">Pago al recibir:</strong> Esta reserva asegura tu disponibilidad.
-                Nuestro equipo te contactará para confirmar.
+                <strong className="text-wolf-dark">Así funciona:</strong> dejas los datos, te
+                escribimos para confirmar la disponibilidad y, si todo cuadra, te pedimos un
+                anticipo del 10 % para apartar el carro. El resto lo pagas cuando te lo
+                entregamos.
               </div>
 
-              <button type="submit" className="btn-primary w-full">
-                Confirmar reserva
+              {submitError && (
+                <div className="bg-wolf-red/10 border border-wolf-red px-4 py-3 text-sm text-wolf-red">
+                  {submitError}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="btn-primary w-full disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {submitting ? "Guardando…" : "Confirmar mi reserva"}
                 <ArrowRight size={14} />
               </button>
             </form>

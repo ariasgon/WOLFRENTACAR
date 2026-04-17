@@ -24,12 +24,12 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50">
       {/* Top status strip */}
-      <div className="bg-wolf-ink text-wolf-on-dark text-[10px] font-display font-bold tracking-[0.24em] uppercase border-b border-wolf-hairline">
+      <div className="bg-wolf-ink text-wolf-on-dark text-[10px] font-display font-semibold tracking-[0.22em] uppercase border-b border-wolf-hairline">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 h-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-wolf-red animate-blink" />
-            <span className="hidden sm:inline">Colombia · 6 Ciudades · Lun–Sáb 08:00–18:00</span>
-            <span className="sm:hidden">Colombia · 6 ciudades</span>
+            <span className="hidden sm:inline">Hola · Lun – Sáb 8:00 AM – 6:00 PM</span>
+            <span className="sm:hidden">Hola, estamos abiertos</span>
           </div>
           <a
             href="tel:+573028491534"
@@ -41,7 +41,7 @@ export default function Header() {
           <div className="flex items-center gap-4 text-[9px]">
             <span className="hidden lg:inline">Seguro incluido</span>
             <span className="w-1 h-1 rounded-full bg-wolf-blue hidden lg:inline" />
-            <span className="hidden lg:inline">WhatsApp 24h</span>
+            <span className="hidden lg:inline">WhatsApp siempre</span>
           </div>
         </div>
       </div>

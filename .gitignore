@@ -48,3 +48,7 @@ SESSION_HANDOFF.md
 # audit screenshots (kept locally, not committed)
 localiza-*.png
 wolf-*.png
+
+# runtime data — bookings contain PII and shouldn't be committed
+/data/bookings.json
+.env*.local

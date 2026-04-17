@@ -47,13 +47,12 @@ export default function ContactoPage() {
             <span>·</span>
             <span>Contacto</span>
           </div>
-          <div className="kicker mb-5">Habla con la manada</div>
+          <div className="kicker mb-5">Hablemos</div>
           <h1 className="display-xl text-white">
-            Envíanos tu<br/>
-            <span className="text-wolf-red">mensaje</span>.
+            Cuéntanos qué <span className="text-wolf-red">necesitas</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
-            ¿Tienes alguna pregunta? Estamos aquí para ayudarte por cualquier canal.
+            Escríbenos por WhatsApp, llámanos o manda un correo. Te respondemos el mismo día.
           </p>
         </div>
       </section>

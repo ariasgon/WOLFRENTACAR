@@ -41,14 +41,13 @@ export default function FlotaPage() {
             <span>·</span>
             <span>Flota</span>
           </div>
-          <div className="kicker mb-5">Catálogo 2026 · 08 categorías</div>
+          <div className="kicker mb-5">Nuestra flota · 8 carros</div>
           <h1 className="display-xl text-white">
-            La <span className="text-wolf-red">manada</span><br />
-            completa.
+            Escoge el que <span className="text-wolf-red">va contigo</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
-            Vehículos para cada necesidad. Compactos económicos, SUVs premium y vans para equipos
-            — todos con seguro y mantenimiento al día.
+            Desde un sedán urbano para moverte por la ciudad hasta una SUV 4×4 o una van para 15.
+            Todos con seguro incluido y mantenimiento al día.
           </p>
 
           <div className="mt-10">

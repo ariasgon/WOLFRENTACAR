@@ -27,15 +27,15 @@ export default function Footer() {
           {Array.from({ length: 12 }).map((_, i) => (
             <span
               key={i}
-              className="mx-8 font-display font-bold text-[13px] tracking-[0.3em] uppercase text-white/90 inline-flex items-center gap-6"
+              className="mx-8 font-display font-semibold text-[13px] tracking-[0.28em] uppercase text-white/95 inline-flex items-center gap-6"
             >
-              Wolf Rent a Car
+              Hola, soy Wolf
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
-              Alquiler en 6 ciudades
+              Carros en 6 ciudades
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
-              Seguro incluido
+              Seguro incluido siempre
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
-              WhatsApp 24h
+              Escríbenos 24h
               <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
             </span>
           ))}
@@ -61,17 +61,18 @@ export default function Footer() {
                   className="h-14 w-auto"
                 />
                 <span className="font-display text-[10px] tracking-[0.22em] uppercase text-wolf-red border-l border-wolf-hairline pl-4">
-                  Est. Colombia
+                  Hecho en Colombia
                 </span>
               </div>
 
-              <p className="font-display text-[28px] leading-[1.05] uppercase font-bold text-white mb-2">
-                Tu viaje<br/>
-                comienza con <span className="text-wolf-red">Wolf</span>.
+              <p className="font-display text-[26px] md:text-[28px] leading-[1.08] font-bold text-white mb-3 tracking-tight">
+                Te cuadramos el carro.<br/>
+                Tú <span className="text-wolf-red">haces la ruta</span>.
               </p>
               <p className="text-wolf-on-dark/70 text-sm max-w-md leading-relaxed mb-6">
-                Wolf Renta Car SAS — alquiler de vehículos particulares en las principales
-                ciudades de Colombia. Servicio profesional y confiable.
+                Wolf Renta Car SAS — somos un equipo chiquito y colombiano. Alquilamos carros
+                en seis ciudades del país, sin complicaciones y con alguien del otro lado
+                cuando escribes.
               </p>
 
               <div className="flex gap-0 border border-wolf-hairline w-max">

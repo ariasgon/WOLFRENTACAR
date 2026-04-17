@@ -71,10 +71,9 @@ export default function OfertasPage() {
             <span>·</span>
             <span>Ofertas</span>
           </div>
-          <div className="kicker mb-5">Promociones activas</div>
+          <div className="kicker mb-5">Ofertas activas</div>
           <h1 className="display-xl text-white">
-            Buenas ofertas.<br />
-            <span className="text-wolf-red">Mejores viajes.</span>
+            Ahorra un poco, <span className="text-wolf-red">viaja más</span>.
           </h1>
           <p className="text-wolf-on-dark/80 text-base md:text-lg max-w-xl mt-6">
             Aprovecha nuestras promociones vigentes en alquiler de vehículos en toda Colombia.
